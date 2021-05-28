@@ -54,4 +54,11 @@ public class IssueManagerTest {
         ArrayList actual = new ArrayList(Arrays.asList(issue1, issue2, issue3, issue4, issue5, issue6));
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void filteredByAuthor () {
+        ArrayList<Issue> expected = manager.filterByAuthor(author2);
+        ArrayList actual = new ArrayList(Arrays.asList(issue2, issue5));
+        assertEquals(expected, actual);
+    }
 }

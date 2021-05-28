@@ -13,25 +13,17 @@ import java.util.Set;
 public class Issue implements Comparable<Issue> {
     private int id;
     private String title;
-    private Set<Author> author = new HashSet<>();
-    private Set<Assignee> assignee = new HashSet<>();
-    private Set<Label> label = new HashSet<>();
+    private Set<String> author = new HashSet<>();
+    private Set<String> assignee = new HashSet<>();
+    private Set<String> label = new HashSet<>();
     private boolean opened;
+
+    public Issue(Set<String> author) {
+        this.author = author;
+    }
 
     @Override
     public int compareTo(Issue o) {
         return id - o.id;
-    }
-
-    @Data
-    public class Label {
-    }
-
-    @Data
-    public class Author {
-    }
-
-    @Data
-    public class Assignee {
     }
 }

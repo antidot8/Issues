@@ -39,7 +39,7 @@ public class IssueManager {
         return tmp;
     }
 
-    public ArrayList<Issue> filterByAuthor(Set<Issue.Author> author) {
+    public ArrayList<Issue> filterByAuthor(Set<String> author) {
         ArrayList<Issue> tmp = new ArrayList<>();
         for (Issue issue : repository.getAll()) {
             if (issue.getAuthor() == author) {
@@ -49,7 +49,7 @@ public class IssueManager {
         return tmp;
     }
 
-    public ArrayList<Issue> filterByLabel(Set<Issue.Label> label) {
+    public ArrayList<Issue> filterByLabel(Set<String> label) {
         ArrayList<Issue> tmp = new ArrayList<>();
         for (Issue issue : repository.getAll()) {
             if (issue.getLabel() == label) {
@@ -59,7 +59,7 @@ public class IssueManager {
         return tmp;
     }
 
-    public ArrayList<Issue> filterByAssignee(Set<Issue.Assignee> assignee) {
+    public ArrayList<Issue> filterByAssignee(Set<String> assignee) {
         ArrayList<Issue> tmp = new ArrayList<>();
         for (Issue issue : repository.getAll()) {
             if (issue.getAssignee() == assignee) {

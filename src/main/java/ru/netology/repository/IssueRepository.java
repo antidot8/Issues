@@ -23,7 +23,7 @@ public class IssueRepository {
                     issue.setOpened(true);
                 }
             } else {
-                throw new NotFoundException("Элемента с " + id + " не существует");
+                throw new NotFoundException("Issue # " + id + " нельзя открыть");
             }
     }
 
@@ -34,7 +34,7 @@ public class IssueRepository {
                     issue.setOpened(false);
                 }
             } else {
-                throw new NotFoundException("Элемента с " + id + " не существует");
+                throw new NotFoundException("Issue # " + id + " нельзя закрыть");
             }
     }
 

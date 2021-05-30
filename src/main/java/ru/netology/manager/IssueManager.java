@@ -1,11 +1,13 @@
 package ru.netology.manager;
 
 import ru.netology.domain.Issue;
+import ru.netology.domain.SortByNewest;
+import ru.netology.domain.SortByOldest;
 import ru.netology.repository.IssueRepository;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Set;
+import java.util.function.Predicate;
 
 public class IssueManager {
     private final IssueRepository repository;
@@ -31,18 +33,17 @@ public class IssueManager {
     public ArrayList<Issue> findClosed() {
         ArrayList<Issue> tmp = new ArrayList<>();
         for (Issue issue : repository.getAll()) {
-            if (issue.isOpened()) {
-            } else {
+            if (!issue.isOpened()) {
                 tmp.add(issue);
             }
         }
         return tmp;
     }
 
-    public ArrayList<Issue> filterByAuthor(Set<String> author) {
+    public ArrayList<Issue> filterByAuthor(Predicate<Set<String>> predicate) {
         ArrayList<Issue> tmp = new ArrayList<>();
         for (Issue issue : repository.getAll()) {
-            if (issue.getAuthor() == author) {
+            if (predicate.test(issue.getAuthor())) {
                 tmp.add(issue);
             }
         }
@@ -52,7 +53,7 @@ public class IssueManager {
     public ArrayList<Issue> filterByLabel(Set<String> label) {
         ArrayList<Issue> tmp = new ArrayList<>();
         for (Issue issue : repository.getAll()) {
-            if (issue.getLabel() == label) {
+            if (issue.getLabel().equals(label)) {
                 tmp.add(issue);
             }
         }
@@ -62,20 +63,22 @@ public class IssueManager {
     public ArrayList<Issue> filterByAssignee(Set<String> assignee) {
         ArrayList<Issue> tmp = new ArrayList<>();
         for (Issue issue : repository.getAll()) {
-            if (issue.getAssignee() == assignee) {
+            if (issue.getAssignee().equals(assignee)) {
                 tmp.add(issue);
             }
         }
         return tmp;
     }
 
-    public ArrayList<Issue> sortByNewest(Issue issue, Comparator<Issue> sortByNewest) {
+    public ArrayList<Issue> sortByNewest() {
+        SortByNewest sortByNewest = new SortByNewest();
         ArrayList<Issue> tmp = repository.getAll();
         tmp.sort(sortByNewest);
         return tmp;
     }
 
-    public ArrayList<Issue> sortByOldest(Issue issue, Comparator<Issue> sortByOldest) {
+    public ArrayList<Issue> sortByOldest() {
+        SortByOldest sortByOldest = new SortByOldest();
         ArrayList<Issue> tmp = repository.getAll();
         tmp.sort(sortByOldest);
         return tmp;

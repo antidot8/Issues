@@ -56,9 +56,8 @@ public class IssueManagerTest {
 //    @Test
 //    public void filteredByAuthor () {
 //        ArrayList<Issue> expected = new ArrayList<>(Arrays.asList(issue2, issue5));
-//        ArrayList<Issue> search = new ArrayList<>(Arrays.asList(author2));
-//        Predicate<Set<String>> author = x -> x.equals(search);
-//        ArrayList<Issue> actual = manager.filterByAuthor(author);
+//        Predicate<String> byAuthor = x -> x.equals(manager.findAll().contains(author2));
+//        ArrayList<Issue> actual = manager.filterByAuthor(author2, byAuthor);
 //        assertEquals(expected, actual);
 //    }
 

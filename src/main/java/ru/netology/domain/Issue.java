@@ -26,6 +26,10 @@ public class Issue implements Comparable<Issue> {
         return label;
     }
 
+    public Set<String> getAuthors() {
+        return author;
+    }
+
     @Override
     public int compareTo(Issue o) {
         return id - o.id;

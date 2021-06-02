@@ -40,10 +40,10 @@ public class IssueManager {
         return tmp;
     }
 
-    public ArrayList<Issue> filterByAuthor(String author, Predicate<String> predicate) {
+    public ArrayList<Issue> filterByAuthor(Predicate<Set<String>> predicate) {
         ArrayList<Issue> tmp = new ArrayList<>();
         for (Issue issue : repository.getAll()) {
-            if (predicate.test(author)) {
+            if (predicate.test(issue.getAuthors())) {
                 tmp.add(issue);
             }
         }

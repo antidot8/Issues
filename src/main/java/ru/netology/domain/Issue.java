@@ -18,14 +18,6 @@ public class Issue implements Comparable<Issue> {
     private Set<String> label = new HashSet<>();
     private boolean opened;
 
-    public Issue(Set<String> author) {
-        this.author = author;
-    }
-
-    public Set<String> getLabel() {
-        return label;
-    }
-
     public Set<String> getAuthors() {
         return author;
     }
@@ -33,5 +25,13 @@ public class Issue implements Comparable<Issue> {
     @Override
     public int compareTo(Issue o) {
         return id - o.id;
+    }
+
+    public Set<String> getLabels() {
+        return label;
+    }
+
+    public Set<String> getAssignees() {
+        return assignee;
     }
 }

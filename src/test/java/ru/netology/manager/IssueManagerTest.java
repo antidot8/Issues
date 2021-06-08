@@ -7,9 +7,6 @@ import ru.netology.domain.NotFoundException;
 import ru.netology.repository.IssueRepository;
 
 import java.util.*;
-import java.util.function.Predicate;
-
-import static java.util.function.Predicate.isEqual;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class IssueManagerTest {
@@ -45,31 +42,22 @@ public class IssueManagerTest {
         manager.add(issue5);
     }
 
-//FixMe ненужный тест
     @Test
-    public void showAll () {
+    public void showAll() {
         ArrayList<Issue> expected = new ArrayList<>(Arrays.asList(issue1, issue2, issue3, issue4, issue5));
         ArrayList<Issue> actual = manager.findAll();
         assertEquals(expected, actual);
     }
 
-//    @Test
-//    public void filteredByAuthor () {
-//        ArrayList<Issue> expected = new ArrayList<>(Arrays.asList(issue2, issue5));
-//        Predicate<String> byAuthor = x -> x.equals(manager.findAll().contains(author2));
-//        ArrayList<Issue> actual = manager.filterByAuthor(author2, byAuthor);
-//        assertEquals(expected, actual);
-//    }
-
     @Test
-    public void findClosedIssue () {
+    public void findClosedIssue() {
         ArrayList<Issue> expected = new ArrayList<>(Arrays.asList(issue2, issue4));
         ArrayList<Issue> actual = manager.findClosed();
         assertEquals(expected, actual);
     }
 
     @Test
-    public void findClosedIssueIfClosedNotExist () {
+    public void findClosedIssueIfClosedNotExist() {
         ArrayList<Issue> expected = new ArrayList<>(Collections.emptyList());
         manager.openIssue(issue2);
         manager.openIssue(issue4);
@@ -78,14 +66,14 @@ public class IssueManagerTest {
     }
 
     @Test
-    public void findOpenedIssue () {
+    public void findOpenedIssue() {
         ArrayList<Issue> expected = new ArrayList<>(Arrays.asList(issue1, issue3, issue5));
         ArrayList<Issue> actual = manager.findOpened();
         assertEquals(expected, actual);
     }
 
     @Test
-    public void findOpenedIssueIfOpenedNotExist () {
+    public void findOpenedIssueIfOpenedNotExist() {
         ArrayList<Issue> expected = new ArrayList<>(Collections.emptyList());
         manager.closeIssue(issue1);
         manager.closeIssue(issue3);
@@ -95,7 +83,7 @@ public class IssueManagerTest {
     }
 
     @Test
-    public void closeIssue () {
+    public void closeIssue() {
         ArrayList<Issue> expected = new ArrayList<>(Arrays.asList(issue2, issue3, issue4));
         manager.closeIssue(issue3);
         ArrayList<Issue> actual = manager.findClosed();
@@ -103,7 +91,7 @@ public class IssueManagerTest {
     }
 
     @Test
-    public void closeIssueIfAlreadyClosed () {
+    public void closeIssueIfAlreadyClosed() {
         ArrayList<Issue> expected = new ArrayList<>(Arrays.asList(issue2, issue4));
         manager.closeIssue(issue2);
         ArrayList<Issue> actual = manager.findClosed();
@@ -111,12 +99,12 @@ public class IssueManagerTest {
     }
 
     @Test
-    public void closeIssueIfNotExist () {
+    public void closeIssueIfNotExist() {
         assertThrows(NotFoundException.class, () -> manager.closeIssue(issue6));
     }
 
     @Test
-    public void openIssue () {
+    public void openIssue() {
         ArrayList<Issue> expected = new ArrayList<>(Arrays.asList(issue1, issue2, issue3, issue5));
         manager.openIssue(issue2);
         ArrayList<Issue> actual = manager.findOpened();
@@ -124,7 +112,7 @@ public class IssueManagerTest {
     }
 
     @Test
-    public void openIssueIfAlreadyOpened () {
+    public void openIssueIfAlreadyOpened() {
         ArrayList<Issue> expected = new ArrayList<>(Arrays.asList(issue1, issue3, issue5));
         manager.openIssue(issue1);
         ArrayList<Issue> actual = manager.findOpened();
@@ -132,49 +120,62 @@ public class IssueManagerTest {
     }
 
     @Test
-    public void openIssueIfNotExist () {
+    public void openIssueIfNotExist() {
         assertThrows(NotFoundException.class, () -> manager.openIssue(issue6));
     }
 
+
     @Test
-    public void filteredByLabel () {
-        ArrayList<Issue> expected = new ArrayList<>(Arrays.asList(issue2, issue3));
-        ArrayList<Issue> actual = manager.filterByLabel(label2);
+    public void filteredByAuthor () {
+        List<Issue> expected = new ArrayList<>(Arrays.asList(issue2, issue5));
+        List<Issue> actual = manager.filterByAuthor("author2");
         assertEquals(expected, actual);
     }
 
     @Test
-    public void filteredByLabelIfNotExist () {
-        ArrayList<Issue> expected = new ArrayList<>(Collections.emptyList());
-        Set<String> Label6 = Set.of("Label6");
-        ArrayList<Issue> actual = manager.filterByAssignee(Label6);
+    public void filteredByAuthorIfNotExist() {
+        List<Issue> expected = new ArrayList<>(Collections.emptyList());
+        List<Issue> actual = manager.filterByAuthor("Author5");
         assertEquals(expected, actual);
     }
 
     @Test
-    public void filteredByAssignee () {
-        ArrayList<Issue> expected = new ArrayList<>(Arrays.asList(issue1, issue2, issue3));
-        ArrayList<Issue> actual = manager.filterByAssignee(assignee1);
+    public void filteredByLabel() {
+        List<Issue> expected = new ArrayList<>(Arrays.asList(issue2, issue3));
+        List<Issue> actual = manager.filterByLabel("label2");
         assertEquals(expected, actual);
     }
 
     @Test
-    public void filteredByAssigneeIfNotExist () {
-        ArrayList<Issue> expected = new ArrayList<>(Collections.emptyList());
-        Set<String> assignee5 = Set.of("assignee5");
-        ArrayList<Issue> actual = manager.filterByAssignee(assignee5);
+    public void filteredByLabelIfNotExist() {
+        List<Issue> expected = new ArrayList<>(Collections.emptyList());
+        List<Issue> actual = manager.filterByAssignee("Label6");
         assertEquals(expected, actual);
     }
 
     @Test
-    public void SortByOldest () {
+    public void filteredByAssignee() {
+        List<Issue> expected = new ArrayList<>(Arrays.asList(issue1, issue2, issue3));
+        List<Issue> actual = manager.filterByAssignee("assignee1");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void filteredByAssigneeIfNotExist() {
+        List<Issue> expected = new ArrayList<>(Collections.emptyList());
+        List<Issue> actual = manager.filterByAssignee("assignee5");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void SortByOldest() {
         ArrayList<Issue> expected = new ArrayList<>(Arrays.asList(issue1, issue2, issue3, issue4, issue5));
         ArrayList<Issue> actual = manager.sortByOldest();
         assertEquals(expected, actual);
     }
 
     @Test
-    public void SortByNewest () {
+    public void SortByNewest() {
         ArrayList<Issue> expected = new ArrayList<>(Arrays.asList(issue5, issue4, issue3, issue2, issue1));
         ArrayList<Issue> actual = manager.sortByNewest();
         assertEquals(expected, actual);

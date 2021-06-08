@@ -72,8 +72,6 @@
                 <configuration>
                     <rules>
                         <rule>
-                            <element>METHOD</element>
-                            <includes>findAll</includes>
                             <limits>
                                 <limit>
                                     <counter>BRANCH</counter>

@@ -6,7 +6,7 @@ import ru.netology.domain.SortByOldest;
 import ru.netology.repository.IssueRepository;
 
 import java.util.ArrayList;
-import java.util.Set;
+import java.util.List;
 import java.util.function.Predicate;
 
 public class IssueManager {
@@ -40,36 +40,26 @@ public class IssueManager {
         return tmp;
     }
 
-    public ArrayList<Issue> filterByAuthor(Predicate<Set<String>> predicate) {
+    public List<Issue> filterBy(Predicate<Issue> predicate) {
         ArrayList<Issue> tmp = new ArrayList<>();
         for (Issue issue : repository.getAll()) {
-            if (predicate.test(issue.getAuthors())) {
+            if (predicate.test(issue)) {
                 tmp.add(issue);
             }
         }
         return tmp;
     }
 
-
-
-    public ArrayList<Issue> filterByLabel(Set<String> label) {
-        ArrayList<Issue> tmp = new ArrayList<>();
-        for (Issue issue : repository.getAll()) {
-            if (issue.getLabel().equals(label)) {
-                tmp.add(issue);
-            }
-        }
-        return tmp;
+    public List<Issue> filterByAuthor(String author) {
+        return filterBy(issue -> issue.getAuthors().contains(author));
     }
 
-    public ArrayList<Issue> filterByAssignee(Set<String> assignee) {
-        ArrayList<Issue> tmp = new ArrayList<>();
-        for (Issue issue : repository.getAll()) {
-            if (issue.getAssignee().equals(assignee)) {
-                tmp.add(issue);
-            }
-        }
-        return tmp;
+    public List<Issue> filterByLabel(String label) {
+        return filterBy(issue -> issue.getLabels().contains(label));
+    }
+
+    public List<Issue> filterByAssignee(String assignee) {
+        return filterBy(issue -> issue.getAssignees().contains(assignee));
     }
 
     public ArrayList<Issue> sortByNewest() {
